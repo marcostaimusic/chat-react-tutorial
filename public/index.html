@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
+</head>
+<body class="container">
+
+    <h1 class="mt-5">Titolo Chat</h1>
+    <hr>
+
+    <form id="form" action="">
+        <div class="row">
+            <div class="col-8">
+                
+                <input type="text" name="" id="messageText" placeholder="Message" class="form-control">
+
+            </div>
+
+            <div class="col-4">
+                <button type="submit" class="btn btn-primary">
+                    Submit
+                </button>
+            </div>
+        </div>
+    </form>
+
+    <div class="row">
+        <div class="col">
+            <ul id="messages" class="mt-2">
+
+            </ul>
+        </div>
+    </div>
+
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.2.0/socket.io.js" integrity="sha512-WL6WGKMPBiM9PnHRYIn5YEtq0Z8XP4fkVb4qy7PP4vhmYQErJ/dySyXuFIMDf1eEYCXCrQrMJfkNwKc9gsjTjA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script>
+        const socket = io('http://localhost:3000')
+        
+        const form = document.querySelector('#form')
+        const messages = document.querySelector('#messages')
+        const messageText = document.querySelector('#messageText')
+
+        form.addEventListener('submit', (event)=> {
+            event.preventDefault()
+
+            const newMessage = messageText.value
+            socket.emit('messageToServer', { text: newMessage })
+        })
+
+        socket.on('messageFromServer', (data)=>{
+            messages.innerHTML += `<li>${data.text}</li>`
+        })
+        
+
+    </script>
+</body>
+</html>
