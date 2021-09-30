@@ -5,11 +5,15 @@ const socketio = require("socket.io");
 const path = require("path");
 const cors = require("cors");
 const Sockets = require("./sockets");
+const { dbConnection } = require("../database/config");
 
 class Server {
   constructor() {
     this.app = express();
     this.port = process.env.PORT;
+
+    //connecting to MongoDB
+    dbConnection();
 
     //http server
     this.server = http.createServer(this.app);
