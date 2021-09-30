@@ -18,6 +18,10 @@ class Sockets {
         //send message to all sockets connected to io instance
         this.io.emit("messageFromServer", data);
       });
+
+      socket.on("typing", (data) => {
+        this.io.emit("typingFromServer", data);
+      });
     });
   }
 }
