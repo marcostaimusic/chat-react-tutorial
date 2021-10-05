@@ -1,0 +1,27 @@
+class Sockets {
+  constructor(io) {
+    this.io = io;
+    this.socketEvents();
+  }
+
+  socketEvents() {
+    //the socket is the client connecting to the server
+    this.io.on("connection", (socket) => {
+      console.log(socket.id);
+
+      socket.on("messageToServer", (data) => {
+        console.log(data);
+        //send message only to the same socket
+        // socket.emit("messageFromServer", data);
+        //send message to all sockets connected to io instance
+        this.io.emit("messageFromServer", data);
+      });
+
+      socket.on("typing", (data) => {
+        this.io.emit("typingFromServer", data);
+      });
+    });
+  }
+}
+
+module.exports = Sockets;
