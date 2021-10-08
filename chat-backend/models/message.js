@@ -21,7 +21,7 @@ const MessageSchema = new Schema(
   }
 );
 
-UserSchema.method("toJSON", function () {
+MessageSchema.method("toJSON", function () {
   const { __v, ...object } = this.toObject();
   object.uid = _id;
   return object;
