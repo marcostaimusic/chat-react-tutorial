@@ -1,10 +1,5 @@
 import React, { useContext, useEffect } from "react";
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-  Redirect,
-} from "react-router-dom";
+import { BrowserRouter as Router, Switch, Redirect } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
 import { ChatPage } from "../pages/ChatPage";
 import { AuthRouter } from "./AuthRouter";

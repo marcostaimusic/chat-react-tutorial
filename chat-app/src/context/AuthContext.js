@@ -29,7 +29,7 @@ export const AuthProvider = ({ children }) => {
         email,
       });
 
-      console.log("Logged");
+      // console.log("Logged");
     }
 
     return resp.ok;
@@ -57,7 +57,7 @@ export const AuthProvider = ({ children }) => {
         email: user.email,
       });
 
-      console.log("Logged");
+      // console.log("Logged");
       return true;
     }
 
@@ -89,7 +89,7 @@ export const AuthProvider = ({ children }) => {
         email: existingUser.email,
       });
 
-      console.log("Logged");
+      // console.log("Logged");
       return true;
     } else {
       setAuth({

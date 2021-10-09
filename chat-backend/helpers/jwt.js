@@ -10,4 +10,14 @@ const generateJWT = (uid) => {
   return token;
 };
 
-module.exports = { generateJWT };
+//from the socket's handshake
+const verifyJWT = (token = "") => {
+  try {
+    const { uid } = jwt.verify(token, process.env.JWTPRIVATEKEY);
+    return [true, uid];
+  } catch (err) {
+    return [false];
+  }
+};
+
+module.exports = { generateJWT, verifyJWT };
