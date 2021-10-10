@@ -2,6 +2,7 @@ const {
   connectedUser,
   disconnectedUser,
   getUsers,
+  recordMessage,
 } = require("../controllers/socket.controller");
 const { verifyJWT } = require("../helpers/jwt");
 
@@ -22,13 +23,21 @@ class Sockets {
 
       await connectedUser(uid);
 
+      socket.join(uid); // se commento questa linea non si scambiano più i messaggi
+
       this.io.emit("connectedUsersList", await getUsers());
+
+      socket.on("personalMessage", async (payload) => {
+        const message = await recordMessage(payload);
+        this.io.to(payload.to).emit("personalMessage", message);
+        this.io.to(payload.from).emit("personalMessage", message);
+      });
 
       // console.log(uid, "client connected");
 
       socket.on("disconnect", async () => {
         await disconnectedUser(uid);
-        console.log("client disconnected", isValid, uid);
+        // console.log("client disconnected", isValid, uid);
         this.io.emit("connectedUsersList", await getUsers());
       });
     });
