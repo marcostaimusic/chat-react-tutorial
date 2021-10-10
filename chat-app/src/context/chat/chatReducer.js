@@ -4,6 +4,15 @@ export const chatReducer = (state, action) => {
   // console.log(action.payload); // ! coglione non funzionava perchè hai messo types con la -s nel dispatch di SidebarChatItem!!!
 
   switch (action.type) {
+    case types.closeSession: {
+      return {
+        uid: "",
+        activeChat: null,
+        users: [],
+        messages: [],
+      };
+    }
+
     case types.uploadedUsers:
       return {
         ...state,
