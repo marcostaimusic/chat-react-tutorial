@@ -14,4 +14,9 @@ const disconnectedUser = async (uid) => {
   return user;
 };
 
-module.exports = { connectedUser, disconnectedUser };
+const getUsers = async () => {
+  const users = await User.find().sort("-online");
+  return users;
+};
+
+module.exports = { connectedUser, disconnectedUser, getUsers };
