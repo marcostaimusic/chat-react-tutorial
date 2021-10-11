@@ -53,6 +53,30 @@ export const SocketProvider = ({ children }) => {
     }
   }, [socket, dispatch]);
 
+  useEffect(() => {
+    if (socket) {
+      socket.on("roomCreated", (name) => {
+        dispatch({
+          type: types.roomCreated,
+          payload: name,
+        });
+        console.log("room received");
+      });
+    }
+  }, [socket, dispatch]);
+
+  useEffect(() => {
+    if (socket) {
+      socket.on("existentRooms", (rooms) => {
+        dispatch({
+          type: types.existingRooms,
+          payload: rooms,
+        });
+        console.log("rooms existent");
+      });
+    }
+  }, [socket, dispatch]);
+
   return (
     <SocketContext.Provider value={{ socket, online }}>
       {children}

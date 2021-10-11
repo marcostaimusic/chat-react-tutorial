@@ -2,70 +2,54 @@ import React, { useState, useContext } from "react";
 import { AuthContext } from "../context/AuthContext";
 import { ChatContext } from "../context/chat/ChatContext";
 import { SocketContext } from "../context/SocketContext";
+import { fetchWithToken } from "../helpers/fetch";
 
 export const CreateRoom = () => {
-  const [message, setMessage] = useState("");
+  const [name, setName] = useState("");
   //   const { auth } = useContext(AuthContext);
-  //   const { socket } = useContext(SocketContext);
+  const { socket } = useContext(SocketContext);
   //   const { chatState } = useContext(ChatContext);
 
   const onChange = ({ target }) => {
-    setMessage(target.value);
+    setName(target.value);
   };
 
-  const onSubmit = (event) => {
-    console.log("ciao");
+  const onSubmit = async (event) => {
+    event.preventDefault();
+    if (name.length === 0) {
+      return;
+    } else {
+      const resp = await fetchWithToken(`room/${name}`);
+      console.log(resp);
+      if (resp.ok)
+        socket.emit("createRoom", {
+          name,
+        });
+
+      setName("");
+    }
   };
-
-  //   const onSubmit = (event) => {
-  //     event.preventDefault();
-  //     if (message.length === 0) {
-  //       return;
-  //     } else {
-  //       socket.emit("personalMessage", {
-  //         from: auth.uid,
-  //         to: chatState.activeChat,
-  //         message,
-  //       });
-
-  //       setMessage("");
-  //     }
-  //   };
 
   return (
     <form onSubmit={onSubmit}>
-      {/* <div className="type_msg row">
-        <div className="input_msg_write col-sm-9"> */}
-      <div class="input-group mb-3">
+      <div className="input-group mb-3">
         <input
           type="text"
-          class="form-control"
-          placeholder="Recipient's username"
-          aria-label="Recipient's username"
+          className="form-control"
+          placeholder="Create a chat room"
+          aria-label="Create a chat room"
           aria-describedby="button-addon2"
+          value={name}
+          onChange={onChange}
         />
         <button
-          class="btn btn-outline-secondary"
-          type="button"
+          className="btn btn-outline-secondary"
+          type="submit"
           id="button-addon2"
         >
-          Button
+          Submit
         </button>
       </div>
-      {/* <input
-            type="text"
-            className="write_msg"
-            placeholder="Create a room..."
-            value={message}
-            onChange={onChange}
-          /> */}
-      {/* </div> */}
-      {/* <div className="col-sm-2 text-center">
-          <button className="msg_send_btn mt-3 mr-5" type="submit">
-            Send
-          </button>
-        </div> */}
-      {/* //   </div> */}
     </form>
   );
 };

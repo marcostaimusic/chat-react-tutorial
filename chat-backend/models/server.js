@@ -33,6 +33,7 @@ class Server {
 
     this.app.use("/api/login", require("../router/authRouter"));
     this.app.use("/api/messages", require("../router/chatRouter"));
+    this.app.use("/api/room", require("../router/roomRouter"));
   }
 
   configSockets() {

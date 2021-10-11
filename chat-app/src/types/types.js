@@ -4,4 +4,6 @@ export const types = {
   newMessage: "[Chat] New message",
   loadMessages: "[Chat] Load Messages",
   closeSession: "[Chat] Close session",
+  roomCreated: "[Chat] Room created",
+  existingRooms: "[Chat] Existing Rooms",
 };
