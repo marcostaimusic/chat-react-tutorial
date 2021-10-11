@@ -8,7 +8,7 @@ export const CreateRoom = () => {
   const [name, setName] = useState("");
   //   const { auth } = useContext(AuthContext);
   const { socket } = useContext(SocketContext);
-  //   const { chatState } = useContext(ChatContext);
+  const { chatState } = useContext(ChatContext);
 
   const onChange = ({ target }) => {
     setName(target.value);
@@ -16,7 +16,7 @@ export const CreateRoom = () => {
 
   const onSubmit = async (event) => {
     event.preventDefault();
-    if (name.length === 0) {
+    if (name.length < 2) {
       return;
     } else {
       const resp = await fetchWithToken(`room/${name}`);

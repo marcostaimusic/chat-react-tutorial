@@ -1,11 +1,17 @@
 const User = require("../models/user");
 const Message = require("../models/message");
+const Room = require("../models/room");
 
 const connectedUser = async (uid) => {
   const user = await User.findById(uid);
   user.online = true;
   await user.save();
   return user;
+};
+
+const existingRooms = async () => {
+  const rooms = await Room.find();
+  return rooms;
 };
 
 const disconnectedUser = async (uid) => {
@@ -31,4 +37,10 @@ const recordMessage = async (payload) => {
   }
 };
 
-module.exports = { connectedUser, disconnectedUser, getUsers, recordMessage };
+module.exports = {
+  connectedUser,
+  disconnectedUser,
+  getUsers,
+  recordMessage,
+  existingRooms,
+};

@@ -5,7 +5,7 @@ import { scrollToBottom } from "../helpers/scrollToBottom";
 import { types } from "../types/types";
 
 export const SidebarRoomItem = ({ room }) => {
-  console.log(room.name);
+  // console.log(room);
   const { chatState, dispatch } = useContext(ChatContext);
   //   const { activeChat } = chatState;
 

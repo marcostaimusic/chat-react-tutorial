@@ -32,6 +32,18 @@ export const SocketProvider = ({ children }) => {
 
   useEffect(() => {
     if (socket) {
+      socket.on("existentRooms", (rooms) => {
+        dispatch({
+          type: types.existingRooms,
+          payload: rooms,
+        });
+        console.log("rooms existent");
+      });
+    }
+  }, [socket, dispatch]);
+
+  useEffect(() => {
+    if (socket) {
       socket.on("connectedUsersList", (users) => {
         dispatch({
           type: types.uploadedUsers,
@@ -61,18 +73,6 @@ export const SocketProvider = ({ children }) => {
           payload: name,
         });
         console.log("room received");
-      });
-    }
-  }, [socket, dispatch]);
-
-  useEffect(() => {
-    if (socket) {
-      socket.on("existentRooms", (rooms) => {
-        dispatch({
-          type: types.existingRooms,
-          payload: rooms,
-        });
-        console.log("rooms existent");
       });
     }
   }, [socket, dispatch]);

@@ -4,6 +4,7 @@ const {
   disconnectedUser,
   getUsers,
   recordMessage,
+  existingRooms,
 } = require("../controllers/socket.controller");
 const { verifyJWT } = require("../helpers/jwt");
 
@@ -23,11 +24,12 @@ class Sockets {
       }
 
       await connectedUser(uid);
+      const rooms = await existingRooms();
 
       socket.join(uid); // se commento questa linea non si scambiano più i messaggi
 
       this.io.emit("connectedUsersList", await getUsers());
-      this.io.emit("existentRooms", await getRooms());
+      this.io.emit("existentRooms", rooms);
 
       socket.on("personalMessage", async (payload) => {
         const message = await recordMessage(payload);
@@ -41,13 +43,14 @@ class Sockets {
         await disconnectedUser(uid);
         // console.log("client disconnected", isValid, uid);
         this.io.emit("connectedUsersList", await getUsers());
+        this.io.emit("existentRooms", await existingRooms());
       });
 
       socket.on("createRoom", async (payload) => {
         console.log("ciao");
         console.log(payload);
         const room = await createRoom(payload);
-        this.io.emit("roomCreated");
+        this.io.emit("roomCreated", room);
       });
     });
   }

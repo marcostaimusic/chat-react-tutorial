@@ -9,7 +9,9 @@ export const Sidebar = () => {
 
   const { auth } = useContext(AuthContext);
   const { uid } = auth;
-  // console.log(chatState);
+
+  // console.log(chatState.users.map((room) => room.uid));
+
   return (
     <Fragment>
       <div className="inbox_chat">
@@ -19,12 +21,13 @@ export const Sidebar = () => {
             <SidebarChatItem key={user.uid} user={user} />
           ))}
 
-        {chatState.rooms.map((room) => (
-          <SidebarRoomItem key={room.uid} room={room} />
-        ))}
+        {chatState.rooms &&
+          chatState.rooms.map((room) => (
+            <SidebarRoomItem key={room.uid} room={room} />
+          ))}
 
         {/* <!-- Espacio extra para scroll --> */}
-        {/* <div className="extra_space"></div> */}
+        <div className="extra_space"></div>
       </div>
     </Fragment>
   );

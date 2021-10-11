@@ -4,7 +4,11 @@ const Room = require("../models/room");
 async function createRoom(payload) {
   try {
     const { name } = payload;
-    console.log(name);
+    const trimmedName = name
+      .split(" ")
+      .filter((s) => s)
+      .join("-");
+    console.log(trimmedName);
     const existingRoom = await Room.findOne({ name });
 
     if (existingRoom) {
