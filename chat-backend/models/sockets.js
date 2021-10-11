@@ -43,8 +43,11 @@ class Sockets {
         const user = await connectedUser(payload.from);
         console.log(user.name);
 
+        socket.broadcast.to(payload.to).emit("roomMessage", message);
+        socket.broadcast.to(payload.from).emit("roomMessage", message);
         this.io.emit("roomMessage", message);
         this.io.to(payload.to).emit("roomMessage", message);
+        // this.io.to(payload.from).emit("roomMessage", message);
       });
 
       // console.log(uid, "client connected");

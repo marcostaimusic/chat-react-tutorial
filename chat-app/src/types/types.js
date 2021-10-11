@@ -6,4 +6,5 @@ export const types = {
   closeSession: "[Chat] Close session",
   roomCreated: "[Chat] Room created",
   existingRooms: "[Chat] Existing Rooms",
+  roomMessage: "[Chat] Room message",
 };

@@ -41,6 +41,19 @@ export const chatReducer = (state, action) => {
         return state;
       }
 
+    case types.roomMessage:
+      if (
+        // state.activeChat === action.payload.from
+        state.activeChat === action.payload.to
+      ) {
+        return {
+          ...state,
+          messages: [...state.messages, action.payload],
+        };
+      } else {
+        return state;
+      }
+
     case types.loadMessages:
       return {
         ...state,

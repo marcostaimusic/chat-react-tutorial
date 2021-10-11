@@ -69,7 +69,7 @@ export const SocketProvider = ({ children }) => {
     if (socket) {
       socket.on("roomMessage", (message) => {
         dispatch({
-          type: types.newMessage,
+          type: types.roomMessage,
           payload: message,
         });
         scrollToBottomAnimated("message");

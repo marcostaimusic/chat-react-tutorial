@@ -60,6 +60,7 @@ export const SendMessage = () => {
       <div className="type_msg row">
         <div className="input_msg_write col-sm-9">
           <input
+            autoFocus
             type="text"
             className="write_msg"
             placeholder="Message..."

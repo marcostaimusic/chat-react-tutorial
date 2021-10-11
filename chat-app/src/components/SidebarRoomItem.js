@@ -3,7 +3,7 @@ import { ChatContext } from "../context/chat/ChatContext";
 import { AuthContext } from "../context/AuthContext";
 import { SocketContext } from "../context/SocketContext";
 import { fetchWithToken } from "../helpers/fetch";
-import { scrollToBottom } from "../helpers/scrollToBottom";
+import { scrollToBottomAnimated } from "../helpers/scrollToBottom";
 import { types } from "../types/types";
 
 export const SidebarRoomItem = ({ room }) => {
@@ -21,11 +21,11 @@ export const SidebarRoomItem = ({ room }) => {
 
     const resp = await fetchWithToken(`messages/${room.uid}`);
 
-    dispatch({
-      type: types.loadMessages,
-      payload: resp.messages,
-    });
-    // scrollToBottom("message");
+    // dispatch({
+    //   type: types.loadMessages,
+    //   payload: resp.messages,
+    // });
+    // scrollToBottomAnimated("message");
   };
 
   return (
