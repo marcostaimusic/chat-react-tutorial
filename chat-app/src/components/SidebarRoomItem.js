@@ -1,5 +1,7 @@
-import React, { useContext } from "react";
+import React, { useContext, Fragment } from "react";
 import { ChatContext } from "../context/chat/ChatContext";
+import { AuthContext } from "../context/AuthContext";
+import { SocketContext } from "../context/SocketContext";
 import { fetchWithToken } from "../helpers/fetch";
 import { scrollToBottom } from "../helpers/scrollToBottom";
 import { types } from "../types/types";
@@ -7,9 +9,24 @@ import { types } from "../types/types";
 export const SidebarRoomItem = ({ room }) => {
   // console.log(room);
   const { chatState, dispatch } = useContext(ChatContext);
-  //   const { activeChat } = chatState;
+  const { activeChat } = chatState;
+  const { socket } = useContext(SocketContext);
+  const { auth } = useContext(AuthContext);
 
-  const onClick = async () => {};
+  const onClick = async () => {
+    dispatch({
+      type: types.activateChat,
+      payload: room.uid,
+    });
+
+    const resp = await fetchWithToken(`messages/${room.uid}`);
+
+    dispatch({
+      type: types.loadMessages,
+      payload: resp.messages,
+    });
+    // scrollToBottom("message");
+  };
 
   return (
     <div

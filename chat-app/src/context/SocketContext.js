@@ -37,7 +37,7 @@ export const SocketProvider = ({ children }) => {
           type: types.existingRooms,
           payload: rooms,
         });
-        console.log("rooms existent");
+        //console.log("rooms existent");
       });
     }
   }, [socket, dispatch]);
@@ -56,6 +56,18 @@ export const SocketProvider = ({ children }) => {
   useEffect(() => {
     if (socket) {
       socket.on("personalMessage", (message) => {
+        dispatch({
+          type: types.newMessage,
+          payload: message,
+        });
+        scrollToBottomAnimated("message");
+      });
+    }
+  }, [socket, dispatch]);
+
+  useEffect(() => {
+    if (socket) {
+      socket.on("roomMessage", (message) => {
         dispatch({
           type: types.newMessage,
           payload: message,

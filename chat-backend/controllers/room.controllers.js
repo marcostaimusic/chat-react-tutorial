@@ -1,5 +1,6 @@
 const { response } = require("express");
 const Room = require("../models/room");
+const User = require("../models/user");
 
 async function createRoom(payload) {
   try {
@@ -16,6 +17,7 @@ async function createRoom(payload) {
     }
 
     const room = new Room(payload);
+    room.type = "room";
     await room.save();
     // const rooms = await Room.findOne().populate('messages')
     // const messages = rooms.messages

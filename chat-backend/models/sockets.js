@@ -1,4 +1,4 @@
-const { createRoom, getRooms } = require("../controllers/room.controllers");
+const { createRoom } = require("../controllers/room.controllers");
 const {
   connectedUser,
   disconnectedUser,
@@ -35,6 +35,16 @@ class Sockets {
         const message = await recordMessage(payload);
         this.io.to(payload.to).emit("personalMessage", message);
         this.io.to(payload.from).emit("personalMessage", message);
+      });
+
+      socket.on("roomMessage", async (payload) => {
+        const message = await recordMessage(payload);
+        console.log(payload);
+        const user = await connectedUser(payload.from);
+        console.log(user.name);
+
+        this.io.emit("roomMessage", message);
+        this.io.to(payload.to).emit("roomMessage", message);
       });
 
       // console.log(uid, "client connected");

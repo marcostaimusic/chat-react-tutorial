@@ -20,7 +20,7 @@ export const SidebarChatItem = ({ user }) => {
       type: types.loadMessages,
       payload: resp.messages,
     });
-    scrollToBottom("message");
+    // scrollToBottom("message");
   };
 
   return (

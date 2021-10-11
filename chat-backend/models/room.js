@@ -8,16 +8,10 @@ const RoomSchema = new Schema({
     minlength: 2,
     maxlength: 50,
   },
+  type: {
+    type: String,
+  },
 });
-
-RoomSchema.virtual("messages", {
-  ref: "Message",
-  localField: "name",
-  foreignField: "room",
-  justOne: false,
-});
-
-RoomSchema.set("toObject", { virtuals: true });
 
 RoomSchema.method("toJSON", function () {
   const { __v, _id, ...object } = this.toObject();
