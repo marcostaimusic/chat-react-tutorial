@@ -7,6 +7,7 @@ const {
   createUser,
   login,
   renewToken,
+  googleLogin,
 } = require("../controllers/auth.controllers");
 
 const { validateFields } = require("../middleware/fieldValidation");
@@ -36,5 +37,7 @@ router.post(
 );
 
 router.get("/renew", validateJWT, renewToken);
+
+router.post("/googlelogin", googleLogin);
 
 module.exports = router;

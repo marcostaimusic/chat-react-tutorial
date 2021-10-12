@@ -1,6 +1,7 @@
 import React, { useContext } from "react";
 import { ChatContext } from "../context/chat/ChatContext";
 import logo from "../../public/roomUsers.png";
+import { scrollToBottom } from "../helpers/scrollToBottom";
 // import { AuthContext } from "../context/AuthContext";
 // import { SocketContext } from "../context/SocketContext";
 // import { fetchWithToken } from "../helpers/fetch";
@@ -26,7 +27,7 @@ export const SidebarRoomItem = ({ room }) => {
     //   type: types.loadMessages,
     //   payload: resp.messages,
     // });
-    // scrollToBottomAnimated("message");
+    scrollToBottom("message");
   };
 
   return (

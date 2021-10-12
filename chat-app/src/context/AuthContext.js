@@ -2,6 +2,7 @@ import React, { createContext, useState, useCallback, useContext } from "react";
 import { fetchWithoutToken, fetchWithToken } from "../helpers/fetch";
 import { types } from "../types/types";
 import { ChatContext } from "./chat/ChatContext";
+import axios from "axios";
 
 export const AuthContext = createContext();
 
@@ -16,6 +17,26 @@ const initialState = {
 export const AuthProvider = ({ children }) => {
   const [auth, setAuth] = useState(initialState);
   const { dispatch } = useContext(ChatContext);
+
+  const responseSuccessGoogle = (response) => {
+    // console.log(response);
+    axios({
+      method: "POST",
+      url: `${process.env.REACT_APP_API_URL}/login/googlelogin`,
+      data: { tokenId: response.tokenId },
+    }).then((response) => {
+      console.log(response);
+      localStorage.setItem("token", response.data.token);
+
+      setAuth({
+        uid: response.data.user.uid,
+        checking: false,
+        logged: true,
+        name: response.data.user.name,
+        email: response.data.user.email,
+      });
+    });
+  };
 
   const login = async (email, password) => {
     const resp = await fetchWithoutToken("login", { email, password }, "POST");
@@ -83,7 +104,7 @@ export const AuthProvider = ({ children }) => {
       localStorage.setItem("token", resp.token);
 
       const { existingUser } = resp;
-
+      console.log(resp);
       setAuth({
         uid: existingUser.uid,
         checking: false,
@@ -119,6 +140,7 @@ export const AuthProvider = ({ children }) => {
       value={{
         auth,
         login,
+        responseSuccessGoogle,
         register,
         validateToken,
         logout,

@@ -18,6 +18,7 @@ class Sockets {
     //the socket is the client connecting to the server
     this.io.on("connection", async (socket) => {
       const [isValid, uid] = verifyJWT(socket.handshake.query["x-token"]);
+      // console.log(socket.handshake);
       if (!isValid) {
         console.log("Unknown socket");
         socket.disconnect();

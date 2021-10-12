@@ -1,8 +1,11 @@
+require("dotenv").config();
 const { response } = require("express");
 const bcrypt = require("bcryptjs");
 const { generateJWT } = require("../helpers/jwt");
 const User = require("../models/user");
+const { OAuth2Client } = require("google-auth-library");
 
+const salt = bcrypt.genSaltSync();
 const createUser = async (req, res = response) => {
   try {
     const { email, password } = req.body;
@@ -14,7 +17,7 @@ const createUser = async (req, res = response) => {
     const user = new User(req.body);
 
     // * encrypting password
-    const salt = bcrypt.genSaltSync();
+
     user.password = bcrypt.hashSync(password, salt);
 
     await user.save();
@@ -37,12 +40,10 @@ const createUser = async (req, res = response) => {
 const login = async (req, res) => {
   try {
     const { email, password } = req.body;
-
+    console.log(req.body);
     const existingUser = await User.findOne({ email });
     if (!existingUser) {
-      return res
-        .status(404)
-        .json({ ok: false, msg: "Invalid email or password" });
+      return res.status(404).json({ ok: false, msg: "inexistent" });
     }
 
     //validate password
@@ -80,4 +81,63 @@ const renewToken = async (req, res) => {
   });
 };
 
-module.exports = { createUser, login, renewToken };
+const client = new OAuth2Client(
+  "516113137194-lfa4g8g7ladk19t56ol43p597c1tm6t1.apps.googleusercontent.com"
+);
+
+const googleLogin = async (req, res) => {
+  // console.log("received");
+  const { tokenId } = req.body;
+
+  client
+    .verifyIdToken({
+      idToken: tokenId,
+      audience:
+        "516113137194-lfa4g8g7ladk19t56ol43p597c1tm6t1.apps.googleusercontent.com",
+    })
+    .then(async (response) => {
+      console.log(response);
+      const { email_verified, name, email } = response.payload;
+      const trimmedEmail = email.split("@");
+      const noDotsEmail =
+        trimmedEmail[0].replace(/\./g, "") + "@" + trimmedEmail[1];
+      // console.log(noDotsEmail);
+      if (email_verified) {
+        try {
+          const user = await User.findOne({ email: noDotsEmail });
+          console.log(user);
+          if (user) {
+            const { id } = user;
+            const token = generateJWT(id);
+
+            res.json({
+              ok: true,
+              token,
+              user,
+            });
+          } else {
+            const password = "1234";
+            const user = await new User({ name, email: noDotsEmail, password });
+            await user.save();
+
+            user.password = bcrypt.hashSync(password, salt);
+            await user.save();
+            console.log(user.id);
+            const token = generateJWT(user.id);
+            console.log(token);
+
+            res.json({
+              ok: true,
+              token,
+              user,
+            });
+          }
+        } catch (err) {
+          console.log(err);
+          res.status(500).json({ message: "Something went wrong" });
+        }
+      }
+    });
+};
+
+module.exports = { createUser, login, renewToken, googleLogin };
