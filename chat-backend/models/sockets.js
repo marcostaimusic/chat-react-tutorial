@@ -42,7 +42,7 @@ class Sockets {
         const message = await recordMessage(payload);
 
         const user = await connectedUser(payload.from);
-        console.log(user.name);
+        // console.log(user.name);
 
         socket.broadcast.to(payload.to).emit("roomMessage", { message, user });
         socket.broadcast
@@ -60,8 +60,6 @@ class Sockets {
       });
 
       socket.on("createRoom", async (payload) => {
-        console.log("ciao");
-        console.log(payload);
         const room = await createRoom(payload);
         this.io.emit("roomCreated", room);
       });

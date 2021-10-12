@@ -18,7 +18,7 @@ export const CreateRoom = () => {
       return;
     } else {
       const resp = await fetchWithToken(`room/${name}`);
-      console.log(resp);
+      // console.log(resp);
       if (resp.ok)
         socket.emit("createRoom", {
           name,

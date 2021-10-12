@@ -84,7 +84,7 @@ export const SocketProvider = ({ children }) => {
           type: types.roomCreated,
           payload: name,
         });
-        console.log("room received");
+        // console.log("room received");
       });
     }
   }, [socket, dispatch]);

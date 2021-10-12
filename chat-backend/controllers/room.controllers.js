@@ -9,7 +9,7 @@ async function createRoom(payload) {
       .split(" ")
       .filter((s) => s)
       .join("-");
-    console.log(trimmedName);
+    // console.log(trimmedName);
     const existingRoom = await Room.findOne({ name });
 
     if (existingRoom) {

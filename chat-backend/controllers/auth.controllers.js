@@ -97,7 +97,6 @@ const googleLogin = async (req, res) => {
         "516113137194-lfa4g8g7ladk19t56ol43p597c1tm6t1.apps.googleusercontent.com",
     })
     .then(async (response) => {
-      console.log(response);
       const { email_verified, name, email } = response.payload;
       const trimmedEmail = email.split("@");
       const noDotsEmail =
@@ -106,7 +105,7 @@ const googleLogin = async (req, res) => {
       if (email_verified) {
         try {
           const user = await User.findOne({ email: noDotsEmail });
-          console.log(user);
+
           if (user) {
             const { id } = user;
             const token = generateJWT(id);
@@ -123,9 +122,8 @@ const googleLogin = async (req, res) => {
 
             user.password = bcrypt.hashSync(password, salt);
             await user.save();
-            console.log(user.id);
+
             const token = generateJWT(user.id);
-            console.log(token);
 
             res.json({
               ok: true,
