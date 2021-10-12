@@ -39,14 +39,16 @@ class Sockets {
 
       socket.on("roomMessage", async (payload) => {
         const message = await recordMessage(payload);
-        console.log(payload);
+        // console.log(payload);
         const user = await connectedUser(payload.from);
         console.log(user.name);
 
-        socket.broadcast.to(payload.to).emit("roomMessage", message);
-        socket.broadcast.to(payload.from).emit("roomMessage", message);
-        this.io.emit("roomMessage", message);
-        this.io.to(payload.to).emit("roomMessage", message);
+        socket.broadcast.to(payload.to).emit("roomMessage", { message, user });
+        socket.broadcast
+          .to(payload.from)
+          .emit("roomMessage", { message, user });
+        this.io.emit("roomMessage", { message, user });
+        this.io.to(payload.to).emit("roomMessage", { message, user });
         // this.io.to(payload.from).emit("roomMessage", message);
       });
 

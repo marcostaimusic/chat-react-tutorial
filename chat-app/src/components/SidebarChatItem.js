@@ -1,8 +1,9 @@
 import React, { useContext } from "react";
 import { ChatContext } from "../context/chat/ChatContext";
 import { fetchWithToken } from "../helpers/fetch";
-import { scrollToBottom } from "../helpers/scrollToBottom";
+// import { scrollToBottom } from "../helpers/scrollToBottom";
 import { types } from "../types/types";
+import logo from "../../public/singleUser.png";
 
 export const SidebarChatItem = ({ user }) => {
   const { chatState, dispatch } = useContext(ChatContext);
@@ -20,18 +21,19 @@ export const SidebarChatItem = ({ user }) => {
       type: types.loadMessages,
       payload: resp.messages,
     });
-    scrollToBottom("message");
+    // scrollToBottom("message");
   };
 
   return (
     <div
       className={`chat_list ${user.uid === activeChat && "active_chat"}`}
       onClick={onClick}
+      id="sidebarItem"
     >
       <div className="chat_people">
         <div className="chat_img">
           <img
-            src="https://www.pikpng.com/pngl/m/80-805523_default-avatar-svg-png-icon-free-download-264157.png"
+            src={logo}
             alt="Default Avatar Svg Png Icon Free Download 264157 User - Avatar Icon Png Clipart@pikpng.com"
           />
         </div>

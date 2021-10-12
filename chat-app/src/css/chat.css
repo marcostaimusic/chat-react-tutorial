@@ -8,7 +8,7 @@ img {
 }
 
 .inbox_people {
-    background: #f8f8f8 none repeat scroll 0 0;
+    background: #D3D3D3 none repeat scroll 0 0;
     float: left;
     overflow: hidden;
     width: 40%;
@@ -17,6 +17,7 @@ img {
 
 .inbox_msg {
     border: 1px solid #c4c4c4;
+    background: #D3D3D3;
     clear: both;
     overflow: hidden;
     height: 100vh;
@@ -46,7 +47,7 @@ img {
 }
 
 .recent_heading h4 {
-    color: #7674FE;
+    color: #2AAA8A;
     font-size: 18px;
     margin: auto;
 }
@@ -112,7 +113,7 @@ img {
 }
 
 .inbox_chat {
-    height: 100vh;
+    height: 75vh;
     overflow-y: scroll;
 }
 
@@ -130,8 +131,29 @@ img {
     padding: 0 0 0 10px;
     vertical-align: top;
     width: 92%;
-    position: "sticky"
+    
 }
+
+.room_msg {
+    display: inline-block;
+    padding: 0 0 0 10px;
+    vertical-align: top;
+    align-items: center;
+    width: 98%;
+    
+}
+
+
+.room_withd_msg p {
+    background: #ebebeb none repeat scroll 0 0;
+    border-radius: 3px;
+    color: #646464;
+    font-size: 14px;
+    margin: 0;
+    padding: 5px 10px 5px 12px;
+    width: 100%;
+}
+
 
 .received_withd_msg p {
     background: #ebebeb none repeat scroll 0 0;
@@ -144,7 +166,7 @@ img {
 }
 
 .time_date {
-    color: #747474;
+    color: white;
     display: block;
     font-size: 12px;
     margin: 8px 0 0;
@@ -155,6 +177,7 @@ img {
 }
 
 .mesgs {
+    background: grey;
     float: left;
     padding: 30px 15px 0 25px;
     width: 60%;
@@ -162,11 +185,11 @@ img {
 }
 
 .sent_msg p {
-    background: #7674FE none repeat scroll 0 0;
+    background: #AFE1AF none repeat scroll 0 0;
     border-radius: 3px;
     font-size: 14px;
     margin: 0;
-    color: #fff;
+    color: black;
     padding: 5px 10px 5px 12px;
     width: 100%;
 }
@@ -184,11 +207,16 @@ img {
 .input_msg_write input {
     background: rgba(0, 0, 0, 0) none repeat scroll 0 0;
     border: medium none;
-    color: #4c4c4c;
+    color: white;
     font-size: 15px;
     min-height: 48px;
     width: 100%;
 }
+
+.input_msg_write input::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+    color: black;
+    opacity: 1; /* Firefox */
+  }
 
 .type_msg {
     border-top: 1px solid #c4c4c4;
@@ -196,10 +224,10 @@ img {
 }
 
 .msg_send_btn {
-    background: #7674FE none repeat scroll 0 0;
+    background: #AFE1AF none repeat scroll 0 0;
     border: medium none;
     border-radius: 5px;
-    color: #fff;
+    color: black;
     cursor: pointer;
     font-size: 17px;
     height: 33px;
@@ -208,8 +236,9 @@ img {
 
 
 .msg_history {
+    
     height: 90%;
-    overflow-y: auto;
+    overflow-y: scroll;
 }
 
 .extra_space {

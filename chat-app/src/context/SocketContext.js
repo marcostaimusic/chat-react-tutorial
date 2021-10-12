@@ -6,7 +6,7 @@ import { AuthContext } from "./AuthContext";
 import { ChatContext } from "./chat/ChatContext";
 
 import { types } from "../types/types";
-import { scrollToBottomAnimated } from "../helpers/scrollToBottom";
+import { scrollToBottom } from "../helpers/scrollToBottom";
 
 export const SocketContext = createContext();
 
@@ -60,19 +60,20 @@ export const SocketProvider = ({ children }) => {
           type: types.newMessage,
           payload: message,
         });
-        scrollToBottomAnimated("message");
+        scrollToBottom("message");
       });
     }
   }, [socket, dispatch]);
 
   useEffect(() => {
     if (socket) {
-      socket.on("roomMessage", (message) => {
+      socket.on("roomMessage", ({ message, user }) => {
         dispatch({
           type: types.roomMessage,
           payload: message,
+          user,
         });
-        scrollToBottomAnimated("message");
+        scrollToBottom("message");
       });
     }
   }, [socket, dispatch]);

@@ -29,6 +29,24 @@ async function createRoom(payload) {
   }
 }
 
+async function getUserName(req, res) {
+  try {
+    const id = req.params.id;
+    const user = await User.findById(id);
+    if (!user) {
+      return res.status(404).json({ ok: false, msg: "User not found" });
+    }
+
+    return res.json({
+      ok: true,
+      user,
+    });
+  } catch (err) {
+    console.log(err);
+    return res.status(500).json(err);
+  }
+}
+
 // async function getRooms(req, res) {
 //   try {
 //     const rooms = await Room.find();
@@ -90,7 +108,7 @@ async function getRoom(req, res) {
 // }
 //}
 
-module.exports = { createRoom, getRooms, getRoom };
+module.exports = { createRoom, getRooms, getRoom, getUserName };
 
 // const { response } = require("express");
 // const Room = require("../models/room");

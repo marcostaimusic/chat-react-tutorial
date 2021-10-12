@@ -20,7 +20,9 @@ export const Messages = () => {
     <div className="mesgs">
       <div className="msg_history" id="message">
         {chatState.messages.map((msg) => {
-          if (msg.to === auth.uid) {
+          if (result[0] !== undefined) {
+            return <RoomMessage key={msg.uid} msg={msg} />;
+          } else if (msg.to === auth.uid) {
             return <IncomingMessage key={msg.uid} msg={msg} />;
           } else {
             return <OutgoingMessage key={msg.uid} msg={msg} />;
@@ -32,7 +34,3 @@ export const Messages = () => {
     </div>
   );
 };
-
-// if (result[0] !== undefined) {
-//   return <RoomMessage key={msg.uid} msg={msg} />;
-// } else

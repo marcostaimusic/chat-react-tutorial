@@ -1,6 +1,6 @@
 import React, { useState, useContext } from "react";
-import { AuthContext } from "../context/AuthContext";
-import { ChatContext } from "../context/chat/ChatContext";
+// import { AuthContext } from "../context/AuthContext";
+// import { ChatContext } from "../context/chat/ChatContext";
 import { SocketContext } from "../context/SocketContext";
 import { fetchWithToken } from "../helpers/fetch";
 
@@ -8,7 +8,7 @@ export const CreateRoom = () => {
   const [name, setName] = useState("");
   //   const { auth } = useContext(AuthContext);
   const { socket } = useContext(SocketContext);
-  const { chatState } = useContext(ChatContext);
+  // const { chatState } = useContext(ChatContext);
 
   const onChange = ({ target }) => {
     setName(target.value);

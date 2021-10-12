@@ -1,17 +1,18 @@
-import React, { useContext, Fragment } from "react";
+import React, { useContext } from "react";
 import { ChatContext } from "../context/chat/ChatContext";
-import { AuthContext } from "../context/AuthContext";
-import { SocketContext } from "../context/SocketContext";
-import { fetchWithToken } from "../helpers/fetch";
-import { scrollToBottomAnimated } from "../helpers/scrollToBottom";
+import logo from "../../public/roomUsers.png";
+// import { AuthContext } from "../context/AuthContext";
+// import { SocketContext } from "../context/SocketContext";
+// import { fetchWithToken } from "../helpers/fetch";
+
 import { types } from "../types/types";
 
 export const SidebarRoomItem = ({ room }) => {
   // console.log(room);
   const { chatState, dispatch } = useContext(ChatContext);
-  const { activeChat } = chatState;
-  const { socket } = useContext(SocketContext);
-  const { auth } = useContext(AuthContext);
+  // const { activeChat } = chatState;
+  // const { socket } = useContext(SocketContext);
+  // const { auth } = useContext(AuthContext);
 
   const onClick = async () => {
     dispatch({
@@ -19,7 +20,7 @@ export const SidebarRoomItem = ({ room }) => {
       payload: room.uid,
     });
 
-    const resp = await fetchWithToken(`messages/${room.uid}`);
+    // const resp = await fetchWithToken(`messages/${room.uid}`);
 
     // dispatch({
     //   type: types.loadMessages,
@@ -34,11 +35,12 @@ export const SidebarRoomItem = ({ room }) => {
         room.uid === chatState.activeChat && "active_chat"
       }`}
       onClick={onClick}
+      id="sidebarItem"
     >
       <div className="chat_people">
         <div className="chat_img">
           <img
-            src="https://cdn.imgbin.com/2/12/15/imgbin-multi-user-computer-icons-person-information-others-DrCp4mtG9myW9LMWmG0et2V2c.jpg"
+            src={logo}
             alt="Default Avatar Svg Png Icon Free Download 264157 User - Avatar Icon Png Clipart@pikpng.com"
           />
         </div>

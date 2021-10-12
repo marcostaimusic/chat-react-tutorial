@@ -5,6 +5,7 @@ const {
   createRoom,
   getRooms,
   getRoom,
+  getUserName,
 } = require("../controllers/room.controllers");
 const validateJWT = require("../middleware/validateJWT");
 const router = Router();
@@ -12,5 +13,6 @@ const router = Router();
 router.post("/", validateJWT, createRoom);
 router.get("/:name", validateJWT, getRoom);
 router.get("/", validateJWT, getRooms);
+router.get("/users/:id", validateJWT, getUserName);
 
 module.exports = router;

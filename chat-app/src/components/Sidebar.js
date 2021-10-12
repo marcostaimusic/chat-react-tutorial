@@ -1,4 +1,5 @@
-import React, { Fragment, useContext } from "react";
+import React, { Fragment, useContext, useEffect } from "react";
+import { scrollToBottom } from "../helpers/scrollToBottom";
 import { AuthContext } from "../context/AuthContext";
 import { ChatContext } from "../context/chat/ChatContext";
 import { SidebarChatItem } from "./SidebarChatItem";
@@ -11,10 +12,13 @@ export const Sidebar = () => {
   const { uid } = auth;
 
   // console.log(chatState.users.map((room) => room.uid));
+  useEffect(() => {
+    scrollToBottom("sidebarItem");
+  }, [chatState]);
 
   return (
     <Fragment>
-      <div className="inbox_chat">
+      <div className="inbox_chat" id="sideBar">
         {chatState.users
           .filter((user) => user.uid !== uid)
           .map((user) => (
@@ -27,7 +31,7 @@ export const Sidebar = () => {
           ))}
 
         {/* <!-- Espacio extra para scroll --> */}
-        <div className="extra_space"></div>
+        {/* <div className="extra_space"></div> */}
       </div>
     </Fragment>
   );
