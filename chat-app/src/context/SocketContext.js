@@ -37,7 +37,6 @@ export const SocketProvider = ({ children }) => {
           type: types.existingRooms,
           payload: rooms,
         });
-        //console.log("rooms existent");
       });
     }
   }, [socket, dispatch]);

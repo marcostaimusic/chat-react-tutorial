@@ -3,6 +3,17 @@ html, body {
     margin: 0;
 }
 
+
+.auth__social-networks {
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    width: 100%;
+}
+
 img {
     max-width: 100%;
 }
@@ -264,3 +275,22 @@ textarea {
     width: 60%;
     text-align: center;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

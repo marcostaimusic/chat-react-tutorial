@@ -9,8 +9,6 @@ import { PublicRoute } from "./PublicRoute";
 export const AppRouter = () => {
   const { auth, validateToken } = useContext(AuthContext);
 
-  // console.log(auth);
-
   useEffect(() => {
     validateToken();
   }, [validateToken]);

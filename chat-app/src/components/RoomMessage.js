@@ -16,9 +16,6 @@ export const RoomMessage = ({ msg }) => {
 
   return (
     <div className="incoming_msg">
-      {/* <div className="incoming_msg_img">
-        <img src={logo} alt="sunil" />
-      </div> */}
       <div className="room_msg">
         <div className="room_withd_msg">
           <p>

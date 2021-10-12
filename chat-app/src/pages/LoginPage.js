@@ -1,10 +1,12 @@
 import React, { useState, useEffect, useContext } from "react";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
+import { GoogleLogin } from "react-google-login";
+
 import Swal from "sweetalert2";
 
 export const LoginPage = () => {
-  const { login } = useContext(AuthContext);
+  const { login, responseSuccessGoogle } = useContext(AuthContext);
 
   const [form, setForm] = useState({
     email: "",
@@ -57,6 +59,10 @@ export const LoginPage = () => {
 
   const checkEmptyForm = () => {
     return form.email.length > 0 && form.password.length > 0 ? true : false;
+  };
+
+  const responseFailureGoogle = (response) => {
+    console.log(response.profileObj);
   };
 
   return (
@@ -118,6 +124,15 @@ export const LoginPage = () => {
         >
           Sign in
         </button>
+        <div>
+          <GoogleLogin
+            clientId="516113137194-lfa4g8g7ladk19t56ol43p597c1tm6t1.apps.googleusercontent.com"
+            buttonText="Login with Google"
+            onSuccess={responseSuccessGoogle}
+            onFailure={responseFailureGoogle}
+            cookiePolicy={"single_host_origin"}
+          />
+        </div>
       </div>
     </form>
   );

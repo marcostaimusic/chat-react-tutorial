@@ -9,17 +9,10 @@ export const SendMessage = () => {
   const { socket } = useContext(SocketContext);
   const { chatState } = useContext(ChatContext);
 
-  // console.log(chatState.rooms);
-  // console.log(auth.name);
-
   const rooms = chatState.rooms;
   const uid = chatState.activeChat;
 
   const result = rooms.filter((room) => room.uid === uid);
-
-  if (result[0] !== undefined) {
-    // console.log(result[0].uid);
-  }
 
   const onChange = ({ target }) => {
     setMessage(target.value);
