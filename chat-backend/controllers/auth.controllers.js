@@ -43,7 +43,9 @@ const login = async (req, res) => {
     console.log(req.body);
     const existingUser = await User.findOne({ email });
     if (!existingUser) {
-      return res.status(404).json({ ok: false, msg: "inexistent" });
+      return res
+        .status(404)
+        .json({ ok: false, msg: "Invalid email or password" });
     }
 
     //validate password
