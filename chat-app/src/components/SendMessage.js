@@ -9,11 +9,31 @@ export const SendMessage = () => {
   const { socket } = useContext(SocketContext);
   const { chatState } = useContext(ChatContext);
 
+  const rooms = chatState.rooms;
+  const uid = chatState.activeChat;
+
+  const result = rooms.filter((room) => room.uid === uid);
+
   const onChange = ({ target }) => {
     setMessage(target.value);
   };
 
-  const onSubmit = (event) => {
+  const onSubmitRoom = (event) => {
+    event.preventDefault();
+    if (message.length === 0) {
+      return;
+    } else {
+      socket.emit("roomMessage", {
+        from: auth.uid,
+        to: chatState.activeChat,
+        message,
+      });
+
+      setMessage("");
+    }
+  };
+
+  const onSubmitPersonal = (event) => {
     event.preventDefault();
     if (message.length === 0) {
       return;
@@ -29,10 +49,11 @@ export const SendMessage = () => {
   };
 
   return (
-    <form onSubmit={onSubmit}>
+    <form onSubmit={result[0] !== undefined ? onSubmitRoom : onSubmitPersonal}>
       <div className="type_msg row">
         <div className="input_msg_write col-sm-9">
           <input
+            autoFocus
             type="text"
             className="write_msg"
             placeholder="Message..."

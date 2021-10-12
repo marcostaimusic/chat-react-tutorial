@@ -6,7 +6,7 @@ import { AuthContext } from "./AuthContext";
 import { ChatContext } from "./chat/ChatContext";
 
 import { types } from "../types/types";
-import { scrollToBottomAnimated } from "../helpers/scrollToBottom";
+import { scrollToBottom } from "../helpers/scrollToBottom";
 
 export const SocketContext = createContext();
 
@@ -32,6 +32,17 @@ export const SocketProvider = ({ children }) => {
 
   useEffect(() => {
     if (socket) {
+      socket.on("existentRooms", (rooms) => {
+        dispatch({
+          type: types.existingRooms,
+          payload: rooms,
+        });
+      });
+    }
+  }, [socket, dispatch]);
+
+  useEffect(() => {
+    if (socket) {
       socket.on("connectedUsersList", (users) => {
         dispatch({
           type: types.uploadedUsers,
@@ -48,7 +59,32 @@ export const SocketProvider = ({ children }) => {
           type: types.newMessage,
           payload: message,
         });
-        scrollToBottomAnimated("message");
+        scrollToBottom("message");
+      });
+    }
+  }, [socket, dispatch]);
+
+  useEffect(() => {
+    if (socket) {
+      socket.on("roomMessage", ({ message, user }) => {
+        dispatch({
+          type: types.roomMessage,
+          payload: message,
+          user,
+        });
+        scrollToBottom("message");
+      });
+    }
+  }, [socket, dispatch]);
+
+  useEffect(() => {
+    if (socket) {
+      socket.on("roomCreated", (name) => {
+        dispatch({
+          type: types.roomCreated,
+          payload: name,
+        });
+        console.log("room received");
       });
     }
   }, [socket, dispatch]);

@@ -1,7 +1,7 @@
 import { types } from "../../types/types";
 
 export const chatReducer = (state, action) => {
-  // console.log(action.payload); // ! coglione non funzionava perchè hai messo types con la -s nel dispatch di SidebarChatItem!!!
+  //console.log(action); // ! coglione non funzionava perchè hai messo types con la -s nel dispatch di SidebarChatItem!!!
 
   switch (action.type) {
     case types.closeSession: {
@@ -10,6 +10,7 @@ export const chatReducer = (state, action) => {
         activeChat: null,
         users: [],
         messages: [],
+        rooms: [...state.rooms],
       };
     }
 
@@ -40,11 +41,37 @@ export const chatReducer = (state, action) => {
         return state;
       }
 
+    case types.roomMessage:
+      if (
+        // state.activeChat === action.payload.from
+        state.activeChat === action.payload.to
+      ) {
+        return {
+          ...state,
+          messages: [...state.messages, action.payload],
+        };
+      } else {
+        return state;
+      }
+
     case types.loadMessages:
       return {
         ...state,
         messages: [...action.payload],
       };
+
+    case types.roomCreated:
+      return {
+        ...state,
+        rooms: [...state.rooms, action.payload],
+      };
+
+    case types.existingRooms:
+      return {
+        ...state,
+        rooms: [...action.payload],
+      };
+
     default:
       return state;
   }
