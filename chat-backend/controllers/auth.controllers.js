@@ -86,7 +86,6 @@ const client = new OAuth2Client(
 );
 
 const googleLogin = async (req, res) => {
-  // console.log("received");
   const { tokenId } = req.body;
 
   client
@@ -101,7 +100,7 @@ const googleLogin = async (req, res) => {
       const trimmedEmail = email.split("@");
       const noDotsEmail =
         trimmedEmail[0].replace(/\./g, "") + "@" + trimmedEmail[1];
-      // console.log(noDotsEmail);
+
       if (email_verified) {
         try {
           const user = await User.findOne({ email: noDotsEmail });

@@ -40,7 +40,6 @@ export const AuthProvider = ({ children }) => {
 
   const login = async (email, password) => {
     const resp = await fetchWithoutToken("login", { email, password }, "POST");
-    // console.log(resp);
 
     if (resp.ok) {
       localStorage.setItem("token", resp.token);
@@ -52,8 +51,6 @@ export const AuthProvider = ({ children }) => {
         name,
         email,
       });
-
-      // console.log("Logged");
     }
 
     return resp.ok;
@@ -65,8 +62,6 @@ export const AuthProvider = ({ children }) => {
       { name, email, password },
       "POST"
     );
-
-    // console.log(resp);
 
     if (resp.ok) {
       localStorage.setItem("token", resp.token);
@@ -81,7 +76,6 @@ export const AuthProvider = ({ children }) => {
         email: user.email,
       });
 
-      // console.log("Logged");
       return true;
     }
 
@@ -104,7 +98,7 @@ export const AuthProvider = ({ children }) => {
       localStorage.setItem("token", resp.token);
 
       const { existingUser } = resp;
-      console.log(resp);
+      //console.log(resp);
       setAuth({
         uid: existingUser.uid,
         checking: false,
@@ -113,7 +107,6 @@ export const AuthProvider = ({ children }) => {
         email: existingUser.email,
       });
 
-      // console.log("Logged");
       return true;
     } else {
       setAuth({

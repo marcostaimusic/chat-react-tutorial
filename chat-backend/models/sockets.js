@@ -18,7 +18,7 @@ class Sockets {
     //the socket is the client connecting to the server
     this.io.on("connection", async (socket) => {
       const [isValid, uid] = verifyJWT(socket.handshake.query["x-token"]);
-      // console.log(socket.handshake);
+
       if (!isValid) {
         console.log("Unknown socket");
         socket.disconnect();
@@ -40,7 +40,7 @@ class Sockets {
 
       socket.on("roomMessage", async (payload) => {
         const message = await recordMessage(payload);
-        // console.log(payload);
+
         const user = await connectedUser(payload.from);
         console.log(user.name);
 
@@ -50,14 +50,11 @@ class Sockets {
           .emit("roomMessage", { message, user });
         this.io.emit("roomMessage", { message, user });
         this.io.to(payload.to).emit("roomMessage", { message, user });
-        // this.io.to(payload.from).emit("roomMessage", message);
       });
-
-      // console.log(uid, "client connected");
 
       socket.on("disconnect", async () => {
         await disconnectedUser(uid);
-        // console.log("client disconnected", isValid, uid);
+
         this.io.emit("connectedUsersList", await getUsers());
         this.io.emit("existentRooms", await existingRooms());
       });
@@ -73,16 +70,3 @@ class Sockets {
 }
 
 module.exports = Sockets;
-
-// console.log("client connected", isValid, uid);
-// socket.on("messageToServer", (data) => {
-//   console.log(data);
-//   //send message only to the same socket
-//   // socket.emit("messageFromServer", data);
-//   //send message to all sockets connected to io instance
-//   this.io.emit("messageFromServer", data);
-// });
-
-// socket.on("typing", (data) => {
-//   this.io.emit("typingFromServer", data);
-// });

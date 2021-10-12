@@ -1,7 +1,7 @@
 import { types } from "../../types/types";
 
 export const chatReducer = (state, action) => {
-  console.log(action); // ! coglione non funzionava perchè hai messo types con la -s nel dispatch di SidebarChatItem!!!
+  //console.log(action); // ! coglione non funzionava perchè hai messo types con la -s nel dispatch di SidebarChatItem!!!
 
   switch (action.type) {
     case types.closeSession: {

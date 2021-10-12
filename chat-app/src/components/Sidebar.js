@@ -11,7 +11,6 @@ export const Sidebar = () => {
   const { auth } = useContext(AuthContext);
   const { uid } = auth;
 
-  // console.log(chatState.users.map((room) => room.uid));
   useEffect(() => {
     scrollToBottom("sidebarItem");
   }, [chatState]);
@@ -29,9 +28,6 @@ export const Sidebar = () => {
           chatState.rooms.map((room) => (
             <SidebarRoomItem key={room.uid} room={room} />
           ))}
-
-        {/* <!-- Espacio extra para scroll --> */}
-        {/* <div className="extra_space"></div> */}
       </div>
     </Fragment>
   );

@@ -14,7 +14,6 @@ export const Messages = () => {
   const uid = chatState.activeChat;
 
   const result = rooms.filter((room) => room.uid === uid);
-  // console.log(result);
 
   return (
     <div className="mesgs">
