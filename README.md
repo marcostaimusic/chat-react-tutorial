@@ -1,7 +1,7 @@
 ## Personal and multi-room chat
 
 The folder contains 2 sub-folders, chat-app and chat-backend.
-Clone the repository, and rund `npm install` for both subfolders.
+Clone the repository, and run `npm install` for both subfolders.
 To start the React frontend, run `npm start`, while to run the backend run `npm start` or `npm run dev` to run the server with nodemon.
 
 Both subfolders contain a .env file. For the chat-app point to the backend url you are using, like:
@@ -15,7 +15,7 @@ For the chat-backend, fill the .env fields with the following details, for examp
 `JWTPRIVATEKEY = anyrandomtext`<br>
 `CLUSTER = Local`<br>
 
-The mongoDB databasae will be created with the name of "test". If you wish to change the name, add it the `LOCAL_MONGOURI`
+The mongoDB databasae will be created with the name of "test". If you wish to change the name, add it the `LOCAL_MONGOURI`.
 
 Check that the REACT_APP_API_URL and the PORT have the same port number.
 
