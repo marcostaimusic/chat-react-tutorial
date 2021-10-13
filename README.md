@@ -15,9 +15,9 @@ For the chat-backend, fill the .env fields with the following details, for examp
 `JWTPRIVATEKEY = anyrandomtext`<br>
 `CLUSTER = Local`<br>
 
-The mongoDB databasae will be created with the name of "test". If you wish to change the name, add it the `LOCAL_MONGOURI`.
+The mongoDB databasae will be created with the name of "test". If you wish to change the name, add it at the end of the `LOCAL_MONGOURI`.
 
-Check that the REACT_APP_API_URL and the PORT have the same port number.
+Check that the REACT_APP_API_URL and the PORT in the backend .env have the same port number.
 
 The chat can register new users, both with choosen email and password, and authenticate with Google.
 
