@@ -6,14 +6,14 @@ To start the React frontend, run `npm start`, while to run the backend run `npm 
 
 Both subfolders contain a .env file. For the chat-app point to the backend url you are using, like:
 
-`REACT_APP_API_URL=http://localhost:5000/api`
+`REACT_APP_API_URL=http://localhost:5000/api`<br>
 
 For the chat-backend, fill the .env fields with the following details, for example.
 
-`PORT = 5000`
-`LOCAL_MONGOURI = mongodb://localhost:27017/ `
-`JWTPRIVATEKEY = anyrandomtext`
-`CLUSTER = Local`
+`PORT = 5000`<br>
+`LOCAL_MONGOURI = mongodb://localhost:27017/ `<br>
+`JWTPRIVATEKEY = anyrandomtext`<br>
+`CLUSTER = Local`<br>
 
 Check that the REACT_APP_API_URL and the PORT have the same port number.
 
