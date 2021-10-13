@@ -3,27 +3,47 @@ const Message = require("../models/message");
 const Room = require("../models/room");
 
 const connectedUser = async (uid) => {
-  const user = await User.findById(uid);
-  user.online = true;
-  await user.save();
-  return user;
+  try {
+    const user = await User.findById(uid);
+    user.online = true;
+    await user.save();
+    return user;
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({ ok: false, msg: "Something went wrong" });
+  }
 };
 
 const existingRooms = async () => {
-  const rooms = await Room.find();
-  return rooms;
+  try {
+    const rooms = await Room.find();
+    return rooms;
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({ ok: false, msg: "Something went wrong" });
+  }
 };
 
 const disconnectedUser = async (uid) => {
-  const user = await User.findById(uid);
-  user.online = false;
-  await user.save();
-  return user;
+  try {
+    const user = await User.findById(uid);
+    user.online = false;
+    await user.save();
+    return user;
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({ ok: false, msg: "Something went wrong" });
+  }
 };
 
 const getUsers = async () => {
-  const users = await User.find().sort("-online");
-  return users;
+  try {
+    const users = await User.find().sort("-online");
+    return users;
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({ ok: false, msg: "Something went wrong" });
+  }
 };
 
 const recordMessage = async (payload) => {
@@ -33,6 +53,7 @@ const recordMessage = async (payload) => {
     return message;
   } catch (err) {
     console.log(err);
+    res.status(500).json({ ok: false, msg: "Something went wrong" });
     return false;
   }
 };

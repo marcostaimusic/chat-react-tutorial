@@ -23,6 +23,7 @@ async function createRoom(payload) {
     return room;
   } catch (err) {
     console.log(err);
+    res.status(500).json({ ok: false, msg: "Something went wrong" });
     return false;
   }
 }
@@ -68,6 +69,7 @@ async function getRoom(req, res) {
     }
   } catch (err) {
     console.log(err);
+    res.status(500).json({ ok: false, msg: "Something went wrong" });
     return false;
   }
 }
