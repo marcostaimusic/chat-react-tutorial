@@ -14,7 +14,7 @@ For the chat-backend, fill the .env fields with the following details, for examp
 `LOCAL_MONGOURI = mongodb://localhost:27017/ `<br>
 `JWTPRIVATEKEY = anyrandomtext`<br>
 `CLUSTER = Local`<br>
-`GOOGLE_KEY´= put here your Google OAuth key`
+`GOOGLE_KEY = put here your Google OAuth key`
 
 The mongoDB databasae will be created with the name of "test". If you wish to change the name, add it at the end of the `LOCAL_MONGOURI`.
 
