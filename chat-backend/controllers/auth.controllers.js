@@ -84,7 +84,7 @@ const renewToken = async (req, res) => {
 };
 
 const client = new OAuth2Client(
-  "516113137194-lfa4g8g7ladk19t56ol43p597c1tm6t1.apps.googleusercontent.com"
+  process.env.GOOGLE_KEY
 );
 
 const googleLogin = async (req, res) => {
@@ -94,7 +94,7 @@ const googleLogin = async (req, res) => {
     .verifyIdToken({
       idToken: tokenId,
       audience:
-        "516113137194-lfa4g8g7ladk19t56ol43p597c1tm6t1.apps.googleusercontent.com",
+        process.env.GOOGLE_KEY,
     })
     .then(async (response) => {
       const { email_verified, name, email } = response.payload;
